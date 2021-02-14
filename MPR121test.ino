@@ -1,60 +1,32 @@
-/*********************************************************
-  This is a library for the MPR121 12-channel Capacitive touch sensor
-
-  Designed specifically to work with the MPR121 Breakout in the Adafruit shop
-  ----> https://www.adafruit.com/products/
-
-  These sensors use I2C communicate, at least 2 pins are required
-  to interface
-
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
-**********************************************************/
-///////////////////////////////////////////////////////////////////////BUTTON CYCLER DECLARATIONS/////////////////////////////////////////////////
+/*  These sensors use I2C communicate, at least 2 pins are required to interface*/
+///////////////////////////////////////////////////////////////////////BUTTON DECLARATIONS/////////////////////////////////////////////////
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
-// Digital IO pin connected to the button. This will be driven with a
-// pull-up resistor so the switch pulls the pin to ground momentarily.
 // On a high -> low transition the button press logic will execute.
-#define BUTTON_PIN   2
+//#define BUTTON_PIN   2
 
 #define PIXEL_PIN    6  // Digital IO pin connected to the NeoPixels.
 
 #define PIXEL_COUNT 288  // Number of NeoPixels
 
-// Declare our NeoPixel strip object:
-Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, NEO_GRBW + NEO_KHZ800);
-// Argument 1 = Number of pixels in NeoPixel strip
-// Argument 2 = Arduino pin number (most are valid)
-// Argument 3 = Pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, NEO_GRBW + NEO_KHZ800);// This declares the name of the led strip
 
-boolean oldState = HIGH;
-int     mode     = 0;    // Currently-active animation mode, 0-9
-//////////////////////////////////////////////////////////////END OF BUTTON CYCLER DECLARATIONS////////////////////////////////////////////////
-
-
+boolean oldState = HIGH; // Boolean variable is "oldState" which is either HIGH or LOW, it starts off being HIGH
+int     mode     = 0;    // Different modes happen when the button is pushed 
+//////////////////////////////////////////////////////////////END OF BUTTON DECLARATIONS////////////////////////////////////////////////
 
 #include <Wire.h>
-#include "Adafruit_MPR121.h"
+#include "Adafruit_MPR121.h" //downloaded from Tools>Manage Libraries
 
 #ifndef _BV
 #define _BV(bit) (1 << (bit))
 #endif
 
 // You can have up to 4 on one i2c bus but one is enough for testing!
-Adafruit_MPR121 cap = Adafruit_MPR121();/////SET UP INITIALIZING STUFF, SAME AS DECLARING PINS FOR OUTPUTS
+Adafruit_MPR121 cap = Adafruit_MPR121();/////Set up for touch sensor, same and Pin Input declaration
 
 // Keeps track of the last pins touched
 // so we know when buttons are 'released'
@@ -64,7 +36,7 @@ uint16_t currtouched = 0;
 void setup() {
   ////////////////////////////////BUTTON CYCLER SETUP///////////////////////////////////////////////////////////////////////////////////
 
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+/////////  pinMode(BUTTON_PIN, INPUT_PULLUP);
   strip.begin(); // Initialize NeoPixel strip object (REQUIRED)
   strip.show();  // Initialize all pixels to 'off'
 
