@@ -10,7 +10,7 @@
 
 #define PIXEL_PIN    6  // Digital IO pin connected to the NeoPixels.
 
-#define PIXEL_COUNT 288  // Number of NeoPixels
+#define PIXEL_COUNT 144 // Number of NeoPixels
 
 Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, NEO_GRBW + NEO_KHZ800);// This declares the name of the led strip
 
@@ -53,6 +53,7 @@ void setup() {
   // Default address is 0x5A, if tied to 3.3V its 0x5B
   // If tied to SDA its 0x5C and if SCL then 0x5D
   if (!cap.begin(0x5A)) {
+  ////   if (!cap.begin(0x5A)) {
     Serial.println("MPR121 not found, check wiring?");
     while (1);
   }
@@ -81,10 +82,10 @@ void loop() {
 
 
     //    newState = digitalRead(BUTTON_PIN);
+  
     newState = currtouched;
 
 
- ////////////////   if (newState == LOW) {     // Yes, still low
     if (newState == LOW) {     // Yes, still low
 
 
@@ -93,52 +94,52 @@ void loop() {
       switch (mode) {          // Start the new animation...
         case 0:
           //colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
-           strip.fill( strip.Color(0, 0, 0, 0) , 0, 288            );
+           strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            );
           strip.show();
           break;
         case 1:
 
           //    colorWipe(strip.Color(255,   0,   0), 5);    // Red
           //   strip.clear();
-          strip.fill( strip.Color(255, 0, 0, 0) , 0, 288            );
+          strip.fill( strip.Color(255, 0, 0, 0) , 0, 144            );
           //    strip.Color(255,   0,   0);    // Red
           strip.show();
           //delay(50);
           break;
         case 2:
-          strip.fill( strip.Color(0, 255, 0, 0) , 0, 288            );
+          strip.fill( strip.Color(0, 255, 0, 0) , 0, 144            );
           strip.show();
 
           // colorWipe(strip.Color(  0, 255,   0), 5);    // Green
           break;
         case 3:
-          strip.fill( strip.Color(0, 0, 255, 0) , 0, 288           );
+          strip.fill( strip.Color(0, 0, 255, 0) , 0, 144           );
           strip.show();
           //          colorWipe(strip.Color(  0,   0, 255), 5);    // Blue
           break;
 
         case 4:
-          strip.fill( strip.Color(255, 255, 0, 0) , 0, 288            ); //yellow
+          strip.fill( strip.Color(155, 155, 0, 0) , 0, 144            ); //yellow
           strip.show();
           break;
         case 5:
-          strip.fill( strip.Color(0, 255, 255, 0) , 0, 288            ); //aqua
+          strip.fill( strip.Color(0, 155, 155, 0) , 0, 144            ); //aqua
           strip.show();
           break;
         case 6:
-          strip.fill( strip.Color(255, 0, 255, 0) , 0, 288            ); //magenta
+          strip.fill( strip.Color(155, 0, 155, 0) , 0, 144            ); //magenta
           strip.show();
           break;
         case 7:
-          strip.fill( strip.Color(255, 255, 255, 0) , 0, 288            ); //white
+          strip.fill( strip.Color(155, 155, 155, 0) , 0, 144            ); //white
           strip.show();
           break;
         case 8:
-          strip.fill( strip.Color(255, 255, 255, 0) , 0, 288            ); //white
+          strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            ); //off
           strip.show();
           break;
           case 9:
-          rainbow(5);
+          rainbow(0.1);
           break;
 
 /*
@@ -171,8 +172,9 @@ void loop() {
 
 
   for (uint8_t i = 0; i < 12; i++) {
-    // it if *is* touched and *wasnt* touched before, alert!
+      // it if *is* touched and *wasnt* touched before, alert!
     if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
+      Serial.println("MARK");
       Serial.print(i); Serial.println(" touched");
       theaterChase(strip.Color(127, 127, 127), 5); // White
     }
@@ -180,9 +182,6 @@ void loop() {
     if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)) ) {
       Serial.print(i); Serial.println(" released");
       colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
-
-
-
     }
   }
 
@@ -191,7 +190,7 @@ void loop() {
 
 
 
-  // comment out this line for detailed data from the sensor!//////////////////////////////SERIAL MONITOR PRINTOUT CODE/////////////////////////
+  // comment out "return;" to look like "//return;" get detailed data from the sensor!//////////////////////////////SERIAL MONITOR PRINTOUT CODE/////////////////////////
   return;
 
   // debugging info, what
