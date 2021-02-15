@@ -15,7 +15,7 @@
 Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, NEO_GRBW + NEO_KHZ800);// This declares the name of the led strip
 
 boolean oldState = HIGH; // Boolean variable is "oldState" which is either HIGH or LOW, it starts off being HIGH
-int     mode     = 0;    // Different modes happen when the button is pushed 
+int     mode     = 0;    // Different modes happen when the button is pushed
 //////////////////////////////////////////////////////////////END OF BUTTON DECLARATIONS////////////////////////////////////////////////
 
 #include <Wire.h>
@@ -36,7 +36,7 @@ uint16_t currtouched = 0;
 void setup() {
   ////////////////////////////////BUTTON CYCLER SETUP///////////////////////////////////////////////////////////////////////////////////
 
-/////////  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  /////////  pinMode(BUTTON_PIN, INPUT_PULLUP);
   strip.begin(); // Initialize NeoPixel strip object (REQUIRED)
   strip.show();  // Initialize all pixels to 'off'
 
@@ -53,7 +53,7 @@ void setup() {
   // Default address is 0x5A, if tied to 3.3V its 0x5B
   // If tied to SDA its 0x5C and if SCL then 0x5D
   if (!cap.begin(0x5A)) {
-  ////   if (!cap.begin(0x5A)) {
+    ////   if (!cap.begin(0x5A)) {
     Serial.println("MPR121 not found, check wiring?");
     while (1);
   }
@@ -67,43 +67,33 @@ void loop() {
   ///////////////////////////////////////////////////END BUTTON LOOP CODE Variables//////////////////////////////////////////////////
   boolean newState;
 
-
-strip.setBrightness(5);
+  strip.setBrightness(5);
 
   // Get the currently touched pads
-  //////////// currtouched = cap.touched();   changed to give newState to the currtouched variable
-  newState = cap.touched();
-
-
+  /// currtouched = cap.touched();   changed to give newState to the currtouched variable
+  newState = ! cap.touched();
 
   if ((newState == LOW) && (oldState == HIGH)) {
     // Short delay to debounce button.
     delay(20);
     // Check if button is still low after debounce.
-
-
-    //    newState = digitalRead(BUTTON_PIN);
-  
+    ///    newState = digitalRead(BUTTON_PIN);
     newState = currtouched;
-
 
     if (newState == LOW) {     // Yes, still low
 
-
-      
       if (++mode > 9) mode = 0; // Advance to next mode, wrap around after #8
       switch (mode) {          // Start the new animation...
         case 0:
           //colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
-           strip.fill( strip.Color(255, 0, 0, 0) , 0, 144            );
+          strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            );
           strip.show();
           break;
         case 1:
 
           //    colorWipe(strip.Color(255,   0,   0), 5);    // Red
           //   strip.clear();
-          strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            );
-        ///            strip.fill( strip.Color(255, 0, 0, 0) , 0, 144            );
+          strip.fill( strip.Color(255, 0, 0, 0) , 0, 144            );
 
           //    strip.Color(255,   0,   0);    // Red
           strip.show();
@@ -141,30 +131,30 @@ strip.setBrightness(5);
           strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            ); //off
           strip.show();
           break;
-          case 9:
+        case 9:
           rainbow(0.00001);
           break;
 
-/*
+          /*
 
-        case 9:
-          theaterChase(strip.Color(127, 127, 127), 50); // White
-          break;
-        case 10:
-          theaterChase(strip.Color(127,   0,   0), 50); // Red
-          break;
-        case 11:
-          theaterChase(strip.Color(  0,   0, 127), 50); // Blue
-          break;
-        case 12:
-          rainbow(5);
-          break;
-        case 13:
-          theaterChaseRainbow(10);
-          break;
-*/
+                  case 9:
+                    theaterChase(strip.Color(127, 127, 127), 50); // White
+                    break;
+                  case 10:
+                    theaterChase(strip.Color(127,   0,   0), 50); // Red
+                    break;
+                  case 11:
+                    theaterChase(strip.Color(  0,   0, 127), 50); // Blue
+                    break;
+                  case 12:
+                    rainbow(5);
+                    break;
+                  case 13:
+                    theaterChaseRainbow(10);
+                    break;
+          */
 
-          
+
       }
     }
   }
@@ -175,7 +165,7 @@ strip.setBrightness(5);
 
 
   for (uint8_t i = 0; i < 12; i++) {
-      // it if *is* touched and *wasnt* touched before, alert!
+    // it if *is* touched and *wasnt* touched before, alert!
     if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
       Serial.println("MARK");
       Serial.print(i); Serial.println(" touched");
