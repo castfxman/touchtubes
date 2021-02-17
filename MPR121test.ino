@@ -40,8 +40,6 @@ void setup() {
   strip.begin(); // Initialize NeoPixel strip object (REQUIRED)
   strip.show();  // Initialize all pixels to 'off'
 
-  ////////////////////////////////BUTTON CYCLER SETUP///////////////////////////////////////////////////////////////////////////////////
-
   Serial.begin(9600);
 
   while (!Serial) { // needed to keep leonardo/micro from starting too fast!
@@ -73,7 +71,15 @@ void loop() {
   /// currtouched = cap.touched();   changed to give newState to the currtouched variable
   newState = ! cap.touched();
 
-  if ((newState == LOW) && (oldState == HIGH)) {
+
+///try    if (cap.touched() & (1<<4) ) { do something}
+
+if ( cap.touched() & ( 1<<4 ) ) {
+  ///if ((newState == LOW) && (oldState == HIGH)) {
+
+
+
+    
     // Short delay to debounce button.
     delay(20);
     // Check if button is still low after debounce.
