@@ -94,6 +94,27 @@ if ( cap.touched() & ( 1<<4 ) ) {
           //colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
           strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            );
           strip.show();
+          
+          /* COLOR CODE
+  colorWipe(strip.Color(255,   0,   0), 5); // Red
+  colorWipe(strip.Color(255,   85,   0), 5); // Red
+  colorWipe(strip.Color(255,   165,   0), 5); // Orange
+  colorWipe(strip.Color(255,   215,   0), 5); // Gold
+  colorWipe(strip.Color(170,   255,   0), 5); // Yellow Green
+  colorWipe(strip.Color(85,   255,   0), 5); // Yellow 3
+  colorWipe(strip.Color(0,   255,   0), 5); // Green
+  colorWipe(strip.Color(0,   170,   85), 5); // Green 2
+  colorWipe(strip.Color(0,   85,   170), 5); // Green 3
+  colorWipe(strip.Color(  0,   0,   255), 5); // Blue
+  colorWipe(strip.Color(  85,   0,   170), 5); // Purple
+  colorWipe(strip.Color(  170,   0,   85), 5); // Magenta
+  colorWipe(strip.Color(  255,   0,   255), 5); // Magenta//
+  colorWipe(strip.Color(  255,   0,   85), 5); // Magenta//
+  */
+          
+          
+          
+          
           break;
         case 1:
 
