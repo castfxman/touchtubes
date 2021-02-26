@@ -5,9 +5,9 @@
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
-#define PIXEL_PIN    6  // Digital IO pin connected to the NeoPixels.
+#define PIXEL_PIN    9  // Digital IO pin connected to the NeoPixels.
 
-#define PIXEL_COUNT 144 // Number of NeoPixels
+#define PIXEL_COUNT 241 // Number of NeoPixels
 
 Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, NEO_GRBW + NEO_KHZ800);// This declares the name of the led strip
 
@@ -69,7 +69,7 @@ void loop() {
   ///////////////////////////////////////////////////END BUTTON LOOP CODE Variables//////////////////////////////////////////////////
   boolean newState;
 
-  strip.setBrightness(5);
+  strip.setBrightness(255);
 
   // Get the currently touched pads
   /// currtouched = cap.touched();   changed to give newState to the currtouched variable
@@ -95,26 +95,12 @@ if ( cap.touched() & ( 1<<4 ) ) {
       if (++mode > 9) mode = 0; // Advance to next mode, wrap around after #8
       switch (mode) {          // Start the new animation...
         case 0:
-          //colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
-          strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            );
+          colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
+          //strip.fill( strip.Color(0, 0, 0, 0) , 0, 241            );
           strip.show();
           
-          /* COLOR CODE
-  colorWipe(strip.Color(255,   0,   0), 5); // Red
-  colorWipe(strip.Color(255,   85,   0), 5); // Red
-  colorWipe(strip.Color(255,   165,   0), 5); // Orange
-  colorWipe(strip.Color(255,   215,   0), 5); // Gold
-  colorWipe(strip.Color(170,   255,   0), 5); // Yellow Green
-  colorWipe(strip.Color(85,   255,   0), 5); // Yellow 3
-  colorWipe(strip.Color(0,   255,   0), 5); // Green
-  colorWipe(strip.Color(0,   170,   85), 5); // Green 2
-  colorWipe(strip.Color(0,   85,   170), 5); // Green 3
-  colorWipe(strip.Color(  0,   0,   255), 5); // Blue
-  colorWipe(strip.Color(  85,   0,   170), 5); // Purple
-  colorWipe(strip.Color(  170,   0,   85), 5); // Magenta
-  colorWipe(strip.Color(  255,   0,   255), 5); // Magenta//
-  colorWipe(strip.Color(  255,   0,   85), 5); // Magenta//
-  */
+          // COLOR CODE
+
           
           
           
@@ -122,48 +108,74 @@ if ( cap.touched() & ( 1<<4 ) ) {
           break;
         case 1:
 
+  colorWipe(strip.Color(255,   0,   0), 5); // Red
+ 
+
+
+
           //    colorWipe(strip.Color(255,   0,   0), 5);    // Red
           //   strip.clear();
-          strip.fill( strip.Color(255, 0, 0, 0) , 0, 144            );
+          ///strip.fill( strip.Color(255, 0, 0, 0) , 0, 241            );
 
           //    strip.Color(255,   0,   0);    // Red
-          strip.show();
+         /// strip.show();
           //delay(50);
           break;
         case 2:
-          strip.fill( strip.Color(0, 255, 0, 0) , 0, 144            );
+ 
+           colorWipe(strip.Color(255,   85,   0), 5); // Orange
+  
+          /*
+          strip.fill( strip.Color(0, 255, 0, 0) , 0, 241            );
           strip.show();
-
+*/
           // colorWipe(strip.Color(  0, 255,   0), 5);    // Green
           break;
         case 3:
-          strip.fill( strip.Color(0, 0, 255, 0) , 0, 144           );
-          strip.show();
+  
+          colorWipe(strip.Color(255,   165,   0), 5); // Yellow
+    // strip.fill( strip.Color(0, 0, 255, 0) , 0, 241           );
+         // strip.show();
           //          colorWipe(strip.Color(  0,   0, 255), 5);    // Blue
           break;
 
         case 4:
-          strip.fill( strip.Color(255, 255, 0, 0) , 0, 144            ); //yellow
-          strip.show();
+  
+          colorWipe(strip.Color(0,   255,   0), 5); // Green
+
+       //   strip.fill( strip.Color(255, 255, 0, 0) , 0, 241            ); //yellow
+       //   strip.show();
           break;
         case 5:
-          strip.fill( strip.Color(0, 255, 255, 0) , 0, 144            ); //aqua
-          strip.show();
+  colorWipe(strip.Color(0,   170,   85), 5); // BlueGreen
+
+       //   strip.fill( strip.Color(0, 255, 255, 0) , 0, 241            ); //aqua
+        //  strip.show();
           break;
         case 6:
-          strip.fill( strip.Color(255, 0, 255, 0) , 0, 144            ); //magenta
-          strip.show();
+  colorWipe(strip.Color(  0,   0,   255), 5); // Blue
+
+       //   strip.fill( strip.Color(255, 0, 255, 0) , 0, 241            ); //magenta
+       //   strip.show();
           break;
         case 7:
-          strip.fill( strip.Color(255, 255, 255, 0) , 0, 144            ); //white
-          strip.show();
+  colorWipe(strip.Color(  85,   0,   170), 5); // Purple
+
+       //   strip.fill( strip.Color(255, 255, 255, 0) , 0, 241            ); //white
+       //   strip.show();
           break;
         case 8:
-          strip.fill( strip.Color(0, 0, 0, 0) , 0, 144            ); //off
-          strip.show();
+  colorWipe(strip.Color(  170,   0,   85), 5); // Magenta
+
+
+          
+       //   strip.fill( strip.Color(0, 0, 0, 0) , 0, 241            ); //off
+       //   strip.show();
           break;
         case 9:
-          rainbow(0.00001);
+  //colorWipe(strip.Color(255,   0,   0), 5); // Red
+       
+          rainbow(1);
           break;
 
           /*
@@ -198,7 +210,6 @@ if ( cap.touched() & ( 1<<4 ) ) {
   for (uint8_t i = 0; i < 12; i++) {
     // it if *is* touched and *wasnt* touched before, alert!
     if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
-      Serial.println("MARK");
       Serial.print(i); Serial.println(" touched");
       theaterChase(strip.Color(127, 127, 127), 5); // White
     }
@@ -271,7 +282,7 @@ void rainbow(int wait) {
   // Color wheel has a range of 65536 but it's OK if we roll over, so
   // just count from 0 to 3*65536. Adding 256 to firstPixelHue each time
   // means we'll make 3*65536/256 = 768 passes through this outer loop:
-  for (long firstPixelHue = 0; firstPixelHue < 30 * 65536; firstPixelHue += 1500) {///1500 was 256 and 30 was 3
+  for (long firstPixelHue = 0; firstPixelHue < 3 * 65536; firstPixelHue += 266) {   ///1500 was 256 and 30 was 3
     for (int i = 0; i < strip.numPixels(); i++) { // For each pixel in strip...
       // Offset pixel hue by an amount to make one full revolution of the
       // color wheel (range of 65536) along the length of the strip
@@ -286,7 +297,7 @@ void rainbow(int wait) {
     }
     strip.show(); // Update strip with new contents
     delay(wait);  // Pause for a moment
-  }
+  }   
 }
 
 // Rainbow-enhanced theater marquee. Pass delay time (in ms) between frames.
