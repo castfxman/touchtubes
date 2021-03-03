@@ -46,7 +46,7 @@ void setup() {
   Serial.println("Adafruit MPR121 Capacitive Touch sensor test");
 
 
-cap.setThreshholds(12, 6); //use begin(); to get it out
+cap.setThreshholds(128, 6); //use begin(); to get it out
 
 ///cap.begin(0x5A);  TRY THIS to reset the touch sensor, BEFORE FUCKING WITH THE THRESHHOLDS
 
@@ -95,9 +95,9 @@ if ( cap.touched() & ( 1<<4 ) ) {
       if (++mode > 9) mode = 0; // Advance to next mode, wrap around after #8
       switch (mode) {          // Start the new animation...
         case 0:
-          colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
+          colorWipe(strip.Color(  255,   255,   255), 5);    // Black/off
           //strip.fill( strip.Color(0, 0, 0, 0) , 0, 241            );
-          strip.show();
+         // strip.show();
           
           // COLOR CODE
 
@@ -211,12 +211,12 @@ if ( cap.touched() & ( 1<<4 ) ) {
     // it if *is* touched and *wasnt* touched before, alert!
     if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
       Serial.print(i); Serial.println(" touched");
-      theaterChase(strip.Color(127, 127, 127), 5); // White
+  //    theaterChase(strip.Color(127, 127, 127), 5); // White
     }
     // if it *was* touched and now *isnt*, alert!
     if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)) ) {
       Serial.print(i); Serial.println(" released");
-      colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
+   //   colorWipe(strip.Color(  0,   0,   0), 5);    // Black/off
     }
   }
 
@@ -226,7 +226,7 @@ if ( cap.touched() & ( 1<<4 ) ) {
 
 
   // comment out "return;" to look like "//return;" get detailed data from the sensor!//////////////////////////////SERIAL MONITOR PRINTOUT CODE/////////////////////////
-  return;
+ // return;
 
   // debugging info, what
   Serial.print("\t\t\t\t\t\t\t\t\t\t\t\t\t 0x"); Serial.println(cap.touched(), HEX);
@@ -282,7 +282,7 @@ void rainbow(int wait) {
   // Color wheel has a range of 65536 but it's OK if we roll over, so
   // just count from 0 to 3*65536. Adding 256 to firstPixelHue each time
   // means we'll make 3*65536/256 = 768 passes through this outer loop:
-  for (long firstPixelHue = 0; firstPixelHue < 3 * 65536; firstPixelHue += 266) {   ///1500 was 256 and 30 was 3
+  for (long firstPixelHue = 0; firstPixelHue < 20 * 65536; firstPixelHue += 750) {   ///1500 was 256 and 20 was 3
     for (int i = 0; i < strip.numPixels(); i++) { // For each pixel in strip...
       // Offset pixel hue by an amount to make one full revolution of the
       // color wheel (range of 65536) along the length of the strip
